@@ -1,0 +1,200 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+@import "@fontsource-variable/caveat";
+
+/* Kalameh, served from public/. One face per weight, 100 to 900. */
+@font-face { font-family: 'Kalameh'; src: url('/KalamehWeb-Thin.woff2') format('woff2'); font-weight: 100; font-display: swap; }
+@font-face { font-family: 'Kalameh'; src: url('/KalamehWeb-ExtraLight.woff2') format('woff2'); font-weight: 200; font-display: swap; }
+@font-face { font-family: 'Kalameh'; src: url('/KalamehWeb-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Kalameh'; src: url('/KalamehWeb-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Kalameh'; src: url('/KalamehWeb-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Kalameh'; src: url('/KalamehWeb-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Kalameh'; src: url('/KalamehWeb-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Kalameh'; src: url('/KalamehWeb-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+@font-face { font-family: 'Kalameh'; src: url('/KalamehWeb-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+
+/* Shazde, variable font for Persian, served from public/. Limited to Arabic-script
+   characters (plus ZWNJ/ZWJ) so Latin words like "UI/UX" fall back to Kalameh. */
+@font-face {
+  font-family: 'Shazde';
+  src: url('/Shazde%20VF.woff2') format('woff2-variations'), url('/Shazde%20VF.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200D, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Kalameh', 'Geist Variable', sans-serif;
+    --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+    /* Handwriting for "Based in". Falls back to the Persian fonts for Persian text. */
+    --font-hand: 'Caveat Variable', 'Shazde', 'Kalameh', cursive;
+    --color-brand: var(--brand);
+    --color-brand-soft: var(--brand-soft);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+    /* Brand palette (raw hex copies for canvas components live in src/theme.ts) */
+    --brand: #541790;
+    --brand-soft: #8264A0;
+    --background: #FFFFFF;
+    --foreground: oklch(0.145 0 0);
+    --card: #FFFFFF;
+    --card-foreground: oklch(0.145 0 0);
+    --popover: #FFFFFF;
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: #541790;
+    --primary-foreground: #FFFFFF;
+    --secondary: #FEF9CE;
+    --secondary-foreground: #541790;
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: #8264A0;
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+    /* Dark theme: deep purple-black surfaces, lighter purples for readable accents */
+    --brand: #C3A8E6;
+    --brand-soft: #A88BCB;
+    --background: #0E0A14;
+    --foreground: #F4EFFA;
+    --card: #17111F;
+    --card-foreground: #F4EFFA;
+    --popover: #17111F;
+    --popover-foreground: #F4EFFA;
+    --primary: #6A24B0;
+    --primary-foreground: #FFFFFF;
+    --secondary: #2A2416;
+    --secondary-foreground: #FEF9CE;
+    --muted: #1E1727;
+    --muted-foreground: #A79CB6;
+    --accent: #1E1727;
+    --accent-foreground: #F4EFFA;
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: rgb(255 255 255 / 10%);
+    --input: rgb(255 255 255 / 15%);
+    --ring: #A88BCB;
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: #17111F;
+    --sidebar-foreground: #F4EFFA;
+    --sidebar-primary: #6A24B0;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #1E1727;
+    --sidebar-accent-foreground: #F4EFFA;
+    --sidebar-border: rgb(255 255 255 / 10%);
+    --sidebar-ring: #A88BCB;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
+  html {
+    @apply font-sans;
+    }
+  /* Persian: Shazde for all text (including mono labels), and no letter-spacing or uppercase,
+     which break the joined Persian script. */
+  html:lang(fa) body,
+  html:lang(fa) .font-mono {
+    /* !important so it beats the font-mono utility, which sits in a later layer */
+    font-family: 'Shazde', 'Kalameh', sans-serif !important;
+  }
+  html:lang(fa) * {
+    letter-spacing: normal !important;
+    text-transform: none !important;
+  }
+}
+
+/* Theme switch: the new theme expands as a circle from the toggle (see theme-mode.tsx).
+   Turn off the default cross-fade so only the clip-path reveal plays. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
+}
+/* Sparks from lib/burst.ts sit above the reveal and stay live while it plays. */
+::view-transition-group(theme-sparks) {
+  animation: none;
+  z-index: 3;
+}
+::view-transition-old(theme-sparks) {
+  display: none;
+}
+::view-transition-new(theme-sparks) {
+  animation: none;
+}
