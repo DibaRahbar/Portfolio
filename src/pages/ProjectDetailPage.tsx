@@ -26,7 +26,7 @@ function HeroImage({ src, alt, natural = false }: { src: string; alt: string; na
       <motion.img
         src={src}
         alt={alt}
-        style={reduce ? undefined : { scale }}
+        style={reduce ? undefined : natural ? { scale, transformOrigin: 'top' } : { scale }}
         className={`w-full object-cover ${natural ? 'h-auto' : 'aspect-[1264/600]'}`}
       />
     </div>

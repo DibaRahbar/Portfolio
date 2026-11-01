@@ -88,6 +88,8 @@ export type Project = {
   description: Localized
   /** Real cover image path inside public/ (e.g. 'Image/3.jpg'). When present, used instead of the placeholder on the project card and (for brand/social) the detail-page hero. */
   coverImage?: string
+  /** CSS object-position for the cover on the project card (e.g. 'top' keeps the top of the image visible). Defaults to 'center'. */
+  coverFocus?: string
   tags: Localized[]
   deliverables?: Localized
   duration?: Localized
@@ -119,6 +121,8 @@ export type Project = {
   resultImageFocus?: Record<number, string>
   /** UI/UX projects: live website. Leave out until known; the page shows "coming soon". */
   url?: string
+  /** 'text': show the link as "Website Link : <project title>" instead of the "Visit website" button. */
+  urlStyle?: 'button' | 'text'
   /** UI/UX projects: showcase video file in public/videos (e.g. 'videos/academic-hu.mp4') or a full https URL to a video file. */
   video?: string
 }
@@ -489,9 +493,12 @@ const allProjects: Project[] = [
       fa: 'طراحی و توسعه‌ی یک پلتفرم بصری جذاب که سه گالری هنری تبریز را به هم متصل می‌کند، با مجموعه آثار هنری، پروفایل هنرمندان، کاتالوگ‌های قابل دانلود و اطلاعات گالری.',
     },
     coverImage: 'Image/tabriz-cover.webp',
+    coverFocus: 'top',
     tags: [tag.platform, tag.art, tag.virtual, tag.ecommerce],
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Figma', fa: 'فیگما' },
+    url: 'https://dibarahbar.github.io/Art-Gallery/',
+    urlStyle: 'text',
     uiuxCopy: {
       overview: {
         en: 'This project is a comprehensive online platform that brings together three of Tabriz\'s most prominent art galleries in one place. Art enthusiasts can easily access current and past exhibitions, explore each gallery\'s unique collection, virtual tours that recreate the feeling of being in a physical gallery.\n\nThe site features dedicated profile pages for each gallery showcasing all available works, along with clear contact information such as email, maps, and opening hours. The main goal of the project was to recreate the rich, engaging experience of visiting a gallery — online — allowing art lovers to connect deeply with Tabriz\'s vibrant art scene.',

@@ -9,7 +9,22 @@ const videoSrc = (video: string) => (/^https?:\/\//.test(video) ? video : `${imp
 
 /** "Visit website" button, or a muted "coming soon" label until the project has a URL. */
 export function WebsiteLink({ project, className = 'mt-6' }: { project: Project; className?: string }) {
-  const { t } = useLang()
+  const { t, l } = useLang()
+  if (project.url && project.urlStyle === 'text') {
+    return (
+      <p className={`${className} text-sm font-medium`}>
+        {t('websiteLinkLabel')} :{' '}
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noreferrer"
+          className="text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand"
+        >
+          {l(project.title)}
+        </a>
+      </p>
+    )
+  }
   if (!project.url) {
     return (
       <span className={`${className} inline-flex w-fit items-center gap-2 rounded-full border border-dashed px-6 py-3 text-sm font-medium text-muted-foreground`}>

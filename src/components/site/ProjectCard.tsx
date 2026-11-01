@@ -32,6 +32,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <img
             src={project.coverImage ? assetSrc(project.coverImage) : placeholderImage(`${title} ${t('cover')}`, undefined, undefined, isDark)}
             alt={`${title} ${t('cover')}`}
+            style={project.coverFocus ? { objectPosition: project.coverFocus } : undefined}
             className="aspect-[620/380] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
           <Badge className="absolute start-3 top-3 h-7 px-3 text-[13px]">{t(categoryLabel[project.category])}</Badge>
