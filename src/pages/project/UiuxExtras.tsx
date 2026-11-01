@@ -1,8 +1,61 @@
-import { ArrowUpRight, Play } from 'lucide-react'
-import type { Project } from '@/data'
+import { ArrowUpRight, ChevronDown, Download, Play } from 'lucide-react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { useId, useState } from 'react'
+import type { CaseStudyFile, Project } from '@/data'
 import { useLang } from '@/i18n'
 import { Reveal } from '@/components/site/Reveal'
-import { mono } from '@/pages/project/shared'
+import { assetSrc, mono } from '@/pages/project/shared'
+
+/** Info-card row that expands to list downloadable case-study files. */
+export function CaseStudyRow({ files }: { files: CaseStudyFile[] }) {
+  const { t, l } = useLang()
+  const reduce = useReducedMotion()
+  const [open, setOpen] = useState(false)
+  const listId = useId()
+  return (
+    <div className="border-t py-3">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={listId}
+        onClick={() => setOpen(value => !value)}
+        className="group flex w-full items-center justify-between gap-6 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-brand"
+      >
+        <span className={`${mono} text-muted-foreground transition-colors group-hover:text-brand`}>{t('caseStudy')}</span>
+        <ChevronDown
+          className={`size-4 text-muted-foreground transition-transform duration-300 group-hover:text-brand ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.ul
+            id={listId}
+            initial={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            animate={reduce ? { opacity: 1 } : { height: 'auto', opacity: 1 }}
+            exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            {files.map(file => (
+              <li key={file.href} className="pt-3">
+                <a
+                  href={assetSrc(file.href)}
+                  download={file.fileName}
+                  className="group flex items-center justify-between gap-4 text-sm font-medium outline-none transition-colors hover:text-brand focus-visible:text-brand"
+                >
+                  <span>{l(file.label)}</span>
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full border text-brand transition-colors group-hover:border-brand group-hover:bg-primary group-hover:text-primary-foreground group-focus-visible:border-brand">
+                    <Download className="size-3.5" aria-hidden="true" />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 /** Resolves a video path inside public/ (works under the GitHub Pages sub-path) or passes a full URL through. */
 const videoSrc = (video: string) => (/^https?:\/\//.test(video) ? video : `${import.meta.env.BASE_URL}${video.replace(/^\//, '')}`)

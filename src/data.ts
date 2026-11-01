@@ -77,6 +77,9 @@ export type BrandCopy = {
   result?: Localized
 }
 
+/** A downloadable case-study file inside public/ (e.g. 'files/sanjaq-case-study-en.pdf'). */
+export type CaseStudyFile = { label: Localized; href: string; fileName: string }
+
 // Fields marked optional are simply not shown when missing, so a real project never needs made-up details.
 export type Project = {
   slug: string
@@ -123,6 +126,8 @@ export type Project = {
   url?: string
   /** UI/UX projects: when true, the showcase video section is not shown. */
   hideVideo?: boolean
+  /** Downloadable case studies, listed under App in the info card behind a "Case Study" toggle. */
+  caseStudies?: CaseStudyFile[]
   /** UI/UX projects: showcase video file in public/videos (e.g. 'videos/academic-hu.mp4') or a full https URL to a video file. */
   video?: string
 }
@@ -469,6 +474,18 @@ const allProjects: Project[] = [
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Claude · Figma', fa: 'Claude · فیگما' },
     url: 'https://dibarahbar.github.io/-Sanjaq/login',
+    caseStudies: [
+      {
+        label: { en: 'Case Study - English', fa: 'کیس‌استادی - انگلیسی' },
+        href: 'files/sanjaq-case-study-en.pdf',
+        fileName: 'Sanjaq-Case-Study-EN.pdf',
+      },
+      {
+        label: { en: 'Case Study - Persian', fa: 'کیس‌استادی - فارسی' },
+        href: 'files/sanjaq-case-study-fa.pdf',
+        fileName: 'Sanjaq-Case-Study-FA.pdf',
+      },
+    ],
     hideStory: true,
     hideVideo: true,
   },

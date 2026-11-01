@@ -11,7 +11,7 @@ import { categoryLabel } from '@/lib/category'
 import { placeholderImage } from '@/lib/placeholder'
 import { BrandStory } from '@/pages/project/BrandStory'
 import { GalleryGrid, NumberedSection, StoryText, assetSrc, galleries, mono } from '@/pages/project/shared'
-import { VideoSection, WebsiteLink } from '@/pages/project/UiuxExtras'
+import { CaseStudyRow, VideoSection, WebsiteLink } from '@/pages/project/UiuxExtras'
 import { useThemeMode } from '@/theme-mode'
 import { ProjectsPage } from '@/pages/ProjectsPage'
 
@@ -35,24 +35,31 @@ function HeroImage({ src, alt, natural = false }: { src: string; alt: string; na
 
 function MetaCard({ project }: { project: Project }) {
   const { t, l, n } = useLang()
-  const rows = [
+  const keep = (row: false | undefined | string[]): row is string[] => Boolean(row)
+  // Case studies sit right under App, so the rows are split around them.
+  const upper = [
     project.client && [t('client'), l(project.client)],
     project.year !== undefined && [t('year'), n(project.year)],
     [t('role'), l(project.role)],
     project.appTool && [t('app'), l(project.appTool)],
+  ].filter(keep)
+  const lower = [
     project.duration && [t('duration'), l(project.duration)],
     project.deliverables && [t('deliverables'), l(project.deliverables)],
-  ].filter((row): row is string[] => Boolean(row))
+  ].filter(keep)
+  const row = ([label, value]: string[], first: boolean) => (
+    <div key={label} className={`flex items-baseline justify-between gap-6 py-3 ${first ? 'pt-0' : 'border-t'}`}>
+      <dt className={`${mono} text-muted-foreground`}>{label}</dt>
+      <dd className="text-end text-sm font-medium">{value}</dd>
+    </div>
+  )
   return (
     <div className="space-y-4">
       {project.category === 'uiux' && <WebsiteLink project={project} className="w-fit" />}
       <dl className="h-fit rounded-3xl border bg-background/80 p-6 backdrop-blur">
-        {rows.map(([label, value], i) => (
-          <div key={label} className={`flex items-baseline justify-between gap-6 py-3 ${i ? 'border-t' : 'pt-0'}`}>
-            <dt className={`${mono} text-muted-foreground`}>{label}</dt>
-            <dd className="text-end text-sm font-medium">{value}</dd>
-          </div>
-        ))}
+        {upper.map((r, i) => row(r, i === 0))}
+        {!!project.caseStudies?.length && <CaseStudyRow files={project.caseStudies} />}
+        {lower.map(r => row(r, false))}
       </dl>
     </div>
   )
