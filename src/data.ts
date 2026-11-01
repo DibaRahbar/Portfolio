@@ -546,6 +546,18 @@ const allProjects: Project[] = [
     deliverables: { en: 'Soon', fa: 'به‌زودی' },
     hideStory: true,
   },
+  {
+    slug: 'sanjaq',
+    category: 'uiux',
+    title: { en: 'Sanjaq', fa: 'سنجاق' },
+    description: {
+      en: 'Sanjaq is a decision-tracking tool for design studios, documenting project decisions, reasons, versions, and client approvals.',
+      fa: 'یک ابزار ردیابی تصمیم برای استودیوهای طراحی، مستندسازی تصمیمات پروژه، دلایل، نسخه ها و تاییدیه های مشتری است.',
+    },
+    tags: [tag.uiDesign, tag.uxDesign],
+    role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
+    hideStory: true,
+  },
 
   // Placeholder works (invented details). Replace or remove before sharing the site.
   {
