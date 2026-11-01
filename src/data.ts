@@ -488,6 +488,7 @@ const allProjects: Project[] = [
       en: 'Designed and developed a visually engaging platform connecting three art galleries in Tabriz, featuring artwork collections, artist profiles, downloadable catalogs, and gallery information.',
       fa: 'طراحی و توسعه‌ی یک پلتفرم بصری جذاب که سه گالری هنری تبریز را به هم متصل می‌کند، با مجموعه آثار هنری، پروفایل هنرمندان، کاتالوگ‌های قابل دانلود و اطلاعات گالری.',
     },
+    coverImage: 'Image/tabriz-cover.webp',
     tags: [tag.platform, tag.art, tag.virtual, tag.ecommerce],
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Figma', fa: 'فیگما' },
