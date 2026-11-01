@@ -2,16 +2,16 @@ import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion, use
 import { useEffect, useState } from 'react'
 import { useLang } from '@/i18n'
 
-// Shown once per browser session; reloads and page changes in the same session skip it.
+// Shown only on the first visit in this browser; later visits, new tabs and page changes skip it.
 const SEEN_KEY = 'intro-seen'
 // Shortest time on screen so the intro reads as deliberate, and the longest before giving up.
 const MIN_MS = 2000
 const MAX_MS = 4000
 
-/** True when the loading screen is about to play (first visit of the session). */
+/** True when the loading screen is about to play (first visit in this browser). */
 export function introPending() {
   try {
-    return sessionStorage.getItem(SEEN_KEY) !== '1'
+    return localStorage.getItem(SEEN_KEY) !== '1'
   } catch {
     return true
   }
@@ -42,7 +42,7 @@ export function Preloader() {
     let cancelled = false
     const markSeen = () => {
       try {
-        sessionStorage.setItem(SEEN_KEY, '1')
+        localStorage.setItem(SEEN_KEY, '1')
       } catch {
         // Not persisted; it may show again on the next load.
       }
