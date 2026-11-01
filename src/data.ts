@@ -480,6 +480,7 @@ const allProjects: Project[] = [
       en: 'Website and app design for a photography portfolio.',
       fa: 'طراحی وب‌سایت و اپلیکیشن یک پورتفولیوی عکاسی.',
     },
+    coverImage: 'Image/photography-cover.webp',
     tags: [tag.uiDesign, tag.uxDesign, tag.portfolioDesign],
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Figma', fa: 'فیگما' },
