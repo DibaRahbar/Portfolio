@@ -559,7 +559,7 @@ const allProjects: Project[] = [
     tags: [tag.uiDesign, tag.uxDesign],
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Claude · Figma', fa: 'Claude · فیگما' },
-    url: 'https://dibarahbar.github.io/-Sanjaq/',
+    url: 'https://dibarahbar.github.io/-Sanjaq/login',
     hideStory: true,
     hideVideo: true,
   },
