@@ -121,8 +121,10 @@ export type Project = {
   resultImageFocus?: Record<number, string>
   /** UI/UX projects: live website. Leave out until known; the page shows "coming soon". */
   url?: string
-  /** 'text': show the link as "Website Link : <project title>" instead of the "Visit website" button. */
+  /** 'text': show the link as a "Website Link" row (project title linked) in the info card instead of the "Visit website" button. */
   urlStyle?: 'button' | 'text'
+  /** UI/UX projects: when true, the showcase video section is not shown. */
+  hideVideo?: boolean
   /** UI/UX projects: showcase video file in public/videos (e.g. 'videos/academic-hu.mp4') or a full https URL to a video file. */
   video?: string
 }
@@ -499,6 +501,7 @@ const allProjects: Project[] = [
     appTool: { en: 'Figma', fa: 'فیگما' },
     url: 'https://dibarahbar.github.io/Art-Gallery/',
     urlStyle: 'text',
+    hideVideo: true,
     uiuxCopy: {
       overview: {
         en: 'This project is a comprehensive online platform that brings together three of Tabriz\'s most prominent art galleries in one place. Art enthusiasts can easily access current and past exhibitions, explore each gallery\'s unique collection, virtual tours that recreate the feeling of being in a physical gallery.\n\nThe site features dedicated profile pages for each gallery showcasing all available works, along with clear contact information such as email, maps, and opening hours. The main goal of the project was to recreate the rich, engaging experience of visiting a gallery — online — allowing art lovers to connect deeply with Tabriz\'s vibrant art scene.',
