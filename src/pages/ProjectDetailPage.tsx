@@ -1,6 +1,6 @@
 import { ArrowLeft } from 'lucide-react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { useRef, type ReactNode } from 'react'
+import { useRef } from 'react'
 import CountUp from '@/components/CountUp'
 import { Reveal } from '@/components/site/Reveal'
 import { Shell } from '@/components/site/Shell'
@@ -35,29 +35,17 @@ function HeroImage({ src, alt, natural = false }: { src: string; alt: string; na
 
 function MetaCard({ project }: { project: Project }) {
   const { t, l, n } = useLang()
-  const linkInCard = Boolean(project.url && project.urlStyle === 'text')
-  const rows = ([
+  const rows = [
     project.client && [t('client'), l(project.client)],
     project.year !== undefined && [t('year'), n(project.year)],
     [t('role'), l(project.role)],
     project.appTool && [t('app'), l(project.appTool)],
-    linkInCard && [
-      t('websiteLinkLabel'),
-      <a
-        href={project.url}
-        target="_blank"
-        rel="noreferrer"
-        className="text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand"
-      >
-        {l(project.title)}
-      </a>,
-    ],
     project.duration && [t('duration'), l(project.duration)],
     project.deliverables && [t('deliverables'), l(project.deliverables)],
-  ] as ([string, ReactNode] | false | undefined)[]).filter((row): row is [string, ReactNode] => Boolean(row))
+  ].filter((row): row is string[] => Boolean(row))
   return (
     <div className="space-y-4">
-      {project.category === 'uiux' && !linkInCard && <WebsiteLink project={project} className="w-fit" />}
+      {project.category === 'uiux' && <WebsiteLink project={project} className="w-fit" />}
       <dl className="h-fit rounded-3xl border bg-background/80 p-6 backdrop-blur">
         {rows.map(([label, value], i) => (
           <div key={label} className={`flex items-baseline justify-between gap-6 py-3 ${i ? 'border-t' : 'pt-0'}`}>

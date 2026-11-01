@@ -121,8 +121,6 @@ export type Project = {
   resultImageFocus?: Record<number, string>
   /** UI/UX projects: live website. Leave out until known; the page shows "coming soon". */
   url?: string
-  /** 'text': show the link as a "Website Link" row (project title linked) in the info card instead of the "Visit website" button. */
-  urlStyle?: 'button' | 'text'
   /** UI/UX projects: when true, the showcase video section is not shown. */
   hideVideo?: boolean
   /** UI/UX projects: showcase video file in public/videos (e.g. 'videos/academic-hu.mp4') or a full https URL to a video file. */
@@ -501,7 +499,6 @@ const allProjects: Project[] = [
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Figma', fa: 'فیگما' },
     url: 'https://dibarahbar.github.io/Art-Gallery/',
-    urlStyle: 'text',
     hideVideo: true,
     uiuxCopy: {
       overview: {
