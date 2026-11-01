@@ -555,9 +555,13 @@ const allProjects: Project[] = [
       en: 'Sanjaq is a decision-tracking tool for design studios, documenting project decisions, reasons, versions, and client approvals.',
       fa: 'یک ابزار ردیابی تصمیم برای استودیوهای طراحی، مستندسازی تصمیمات پروژه، دلایل، نسخه ها و تاییدیه های مشتری است.',
     },
+    coverImage: 'Image/sanjaq-cover.png',
     tags: [tag.uiDesign, tag.uxDesign],
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
+    appTool: { en: 'Claude · Figma', fa: 'Claude · فیگما' },
+    url: 'https://dibarahbar.github.io/-Sanjaq/',
     hideStory: true,
+    hideVideo: true,
   },
 
   // Placeholder works (invented details). Replace or remove before sharing the site.
