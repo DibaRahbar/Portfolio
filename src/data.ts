@@ -153,6 +153,7 @@ const tag = {
   uxDesign: { en: 'UX Design', fa: 'طراحی تجربه کاربری' },
   dashboardDesign: { en: 'Dashboard Design', fa: 'طراحی داشبورد' },
   portfolioDesign: { en: 'Portfolio Design', fa: 'طراحی پورتفولیو' },
+  productDesign: { en: 'Product Design', fa: 'طراحی محصول' },
 }
 
 export const websites: Website[] = [
@@ -464,7 +465,7 @@ const allProjects: Project[] = [
       fa: 'یک ابزار ردیابی تصمیم برای استودیوهای طراحی، مستندسازی تصمیمات پروژه، دلایل، نسخه ها و تاییدیه های مشتری است.',
     },
     coverImage: 'Image/sanjaq-cover.png',
-    tags: [tag.uiDesign, tag.uxDesign],
+    tags: [tag.uiDesign, tag.uxDesign, tag.productDesign, tag.dashboardDesign],
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Claude · Figma', fa: 'Claude · فیگما' },
     url: 'https://dibarahbar.github.io/-Sanjaq/login',
