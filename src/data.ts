@@ -93,6 +93,8 @@ export type Project = {
   coverImage?: string
   /** CSS object-position for the cover on the project card (e.g. 'top' keeps the top of the image visible). Defaults to 'center'. */
   coverFocus?: string
+  /** Extra zoom on the project-card cover only (e.g. 1.15 = 15% closer); the detail page is unaffected. */
+  coverZoom?: number
   tags: Localized[]
   deliverables?: Localized
   duration?: Localized
@@ -511,11 +513,13 @@ const allProjects: Project[] = [
       fa: 'طراحی و توسعه‌ی یک وب‌سایت کاربرپسند برای یک استاد دانشگاه جهت اشتراک‌گذاری مطالب درسی، انتشارات پژوهشی و تسهیل ارتباط با دانشجویان.',
     },
     coverImage: 'Image/academic-hu-cover-wide.webp',
+    coverZoom: 1.15,
     tags: [tag.uiDesign, tag.uxDesign, tag.dashboardDesign],
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Figma', fa: 'فیگما' },
     url: 'https://dibarahbar.github.io/Academic-Hu/',
     hideStory: true,
+    hideVideo: true,
   },
   {
     slug: 'photography-portfolio',
