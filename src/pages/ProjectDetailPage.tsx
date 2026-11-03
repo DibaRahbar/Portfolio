@@ -16,18 +16,37 @@ import { useThemeMode } from '@/theme-mode'
 import { ProjectsPage } from '@/pages/ProjectsPage'
 
 /** Hero image that settles from a slight zoom as it scrolls through the viewport. */
-function HeroImage({ src, alt, natural = false }: { src: string; alt: string; natural?: boolean }) {
+function HeroImage({
+  src,
+  alt,
+  natural = false,
+  aspect,
+  focus,
+}: {
+  src: string
+  alt: string
+  /** Keep the image's own proportions instead of the default wide crop. */
+  natural?: boolean
+  /** Fixed CSS aspect-ratio for the frame (overrides natural), cropped around `focus`. */
+  aspect?: string
+  focus?: string
+}) {
   const ref = useRef<HTMLDivElement>(null)
   const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const scale = useTransform(scrollYProgress, [0, 1], [1.12, 1])
+  const frame = aspect ? '' : natural ? 'h-auto' : 'aspect-[1264/600]'
   return (
     <div ref={ref} className="mt-12 overflow-hidden rounded-3xl">
       <motion.img
         src={src}
         alt={alt}
-        style={reduce ? undefined : natural ? { scale, transformOrigin: 'top' } : { scale }}
-        className={`w-full object-cover ${natural ? 'h-auto' : 'aspect-[1264/600]'}`}
+        style={{
+          ...(reduce ? {} : { scale }),
+          ...(natural && !aspect && !reduce ? { transformOrigin: 'top' } : {}),
+          ...(aspect ? { aspectRatio: aspect, objectPosition: focus ?? 'center' } : {}),
+        }}
+        className={`w-full object-cover ${frame}`}
       />
     </div>
   )
@@ -183,7 +202,13 @@ export function ProjectDetailPage({ slug }: { slug: string }) {
         />
       )}
       {project.category === 'uiux' && project.coverImage && (
-        <HeroImage src={assetSrc(project.coverImage)} alt={`${title} ${t('hero')}`} natural />
+        <HeroImage
+          src={assetSrc(project.coverImage)}
+          alt={`${title} ${t('hero')}`}
+          natural
+          aspect={project.heroAspect}
+          focus={project.coverFocus}
+        />
       )}
       <Results project={project} />
       {project.category === 'brand' ? (

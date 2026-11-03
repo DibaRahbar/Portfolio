@@ -93,6 +93,8 @@ export type Project = {
   coverImage?: string
   /** CSS object-position for the cover on the project card (e.g. 'top' keeps the top of the image visible). Defaults to 'center'. */
   coverFocus?: string
+  /** Detail-page hero frame (CSS aspect-ratio, e.g. '4/3') for tall images that would be too long at full width. Uses coverFocus for the crop. */
+  heroAspect?: string
   tags: Localized[]
   deliverables?: Localized
   duration?: Localized
@@ -510,6 +512,9 @@ const allProjects: Project[] = [
       en: 'Designed and developed a user-friendly university professor website to share course materials, research publications, and facilitate student communication.',
       fa: 'طراحی و توسعه‌ی یک وب‌سایت کاربرپسند برای یک استاد دانشگاه جهت اشتراک‌گذاری مطالب درسی، انتشارات پژوهشی و تسهیل ارتباط با دانشجویان.',
     },
+    coverImage: 'Image/academic-hu-cover.webp',
+    coverFocus: '50% 60%',
+    heroAspect: '4/3',
     tags: [tag.uiDesign, tag.uxDesign, tag.dashboardDesign],
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Figma', fa: 'فیگما' },
