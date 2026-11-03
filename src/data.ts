@@ -250,10 +250,7 @@ const allProjects: Project[] = [
       'Image/333.jpg',
       'Image/3333.jpg',
       'Image/35.jpg',
-      'Image/36.jpg',
       'Image/37.jpg',
-      'Image/38.jpg',
-      'Image/39.jpg',
     ],
     visualIdentitySplit: true,
     copy: {
