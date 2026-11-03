@@ -518,6 +518,7 @@ const allProjects: Project[] = [
     tags: [tag.uiDesign, tag.uxDesign, tag.dashboardDesign],
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Figma', fa: 'فیگما' },
+    url: 'https://dibarahbar.github.io/Academic-Hu/',
     hideStory: true,
   },
   {
