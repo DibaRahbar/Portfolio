@@ -1,12 +1,12 @@
 import { projects, type Category, type Project } from '@/data'
 import type { Localized } from '@/i18n'
 
-/** A folder inside a category. Folders without `children` are leaves and hold projects (via `Project.folder`). */
+/** A folder inside a category. A project is filed in any folder, at any level, via `Project.folder`. */
 export type Folder = { id: string; label: Localized; children?: Folder[] }
 
 const folder = (id: string, en: string, fa: string, children?: Folder[]): Folder => ({ id, label: { en, fa }, children })
 
-/** Folder tree per category. Categories not listed here have no folders. Leaf ids are unique across the whole tree. */
+/** Folder tree per category. Categories not listed here have no folders. Folder ids are unique across the whole tree. */
 export const folders: Partial<Record<Category, Folder[]>> = {
   graphic: [
     folder('packaging-label', 'Packaging & Label Design', 'بسته‌بندی و طراحی لیبل'),
@@ -49,12 +49,13 @@ export function folderPath(category: Category, id: string): Folder[] | null {
   return walk(folders[category] ?? [], [])
 }
 
-const leafIds = (node: Folder): string[] => (node.children ? node.children.flatMap(leafIds) : [node.id])
+/** The folder's own id plus every folder below it. */
+const idsIn = (node: Folder): string[] => [node.id, ...(node.children ?? []).flatMap(idsIn)]
 
 /** Projects in a category, narrowed to a folder (and everything below it) when one is given. */
 export function projectsIn(category: Category | null, node?: Folder | null): Project[] {
   const inCategory = category ? projects.filter(p => p.category === category) : projects
   if (!node) return inCategory
-  const ids = leafIds(node)
+  const ids = idsIn(node)
   return inCategory.filter(p => p.folder !== undefined && ids.includes(p.folder))
 }

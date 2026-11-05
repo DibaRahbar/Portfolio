@@ -84,7 +84,7 @@ export type CaseStudyFile = { label: Localized; href: string; fileName: string }
 export type Project = {
   slug: string
   category: Category
-  /** Id of the subfolder (leaf in lib/folders.ts) the project is filed under. Only for categories that have subfolders. */
+  /** Id of the folder (any level in lib/folders.ts) the project is filed under. Only for categories that have folders. */
   folder?: string
   title: Localized
   client?: Localized
@@ -591,7 +591,7 @@ const allProjects: Project[] = [
   {
     slug: 'bloom-cafe',
     category: 'social',
-    folder: 'instagram-feed',
+    folder: 'social-media',
     title: { en: 'Mars Agency on Instagram', fa: 'اینستاگرام مارس آژانس' },
     client: { en: 'Mars Agency', fa: 'مارس آژانس' },
     year: 2026,
