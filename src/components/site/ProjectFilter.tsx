@@ -1,11 +1,13 @@
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { useEffect, useRef } from 'react'
 import { ProjectCard } from '@/components/site/ProjectCard'
 import { Reveal } from '@/components/site/Reveal'
-import { categories, projects, type Category, type Project } from '@/data'
+import { categories, type Category, type Project } from '@/data'
 import { useLang } from '@/i18n'
 import { categoryLabel } from '@/lib/category'
+import { projectsIn } from '@/lib/folders'
 
-/** All / Brand / Social media / UI/UX buttons with counts and a sliding highlight. */
+/** All plus one button per category, with counts and a sliding highlight. */
 export function CategoryFilter({
   value,
   onChange,
@@ -13,13 +15,26 @@ export function CategoryFilter({
   value: Category | null
   onChange: (category: Category | null) => void
 }) {
-  const { t, n } = useLang()
+  const { t, n, lang } = useLang()
   const reduce = useReducedMotion()
+  const bar = useRef<HTMLDivElement>(null)
   const tabs: (Category | null)[] = [null, ...categories]
-  const count = (c: Category | null) => (c ? projects.filter(p => p.category === c).length : projects.length)
+  const count = (c: Category | null) => projectsIn(c).length
+
+  // On narrow screens the bar scrolls sideways; keep the active button in view.
+  // Scrolls the bar only (scrollIntoView could also move the page).
+  useEffect(() => {
+    const container = bar.current
+    const active = container?.querySelector<HTMLElement>('[aria-pressed="true"]')
+    if (!container || !active) return
+    const a = active.getBoundingClientRect()
+    const c = container.getBoundingClientRect()
+    container.scrollBy({ left: a.left + a.width / 2 - (c.left + c.width / 2), behavior: reduce ? 'auto' : 'smooth' })
+  }, [value, lang, reduce])
 
   return (
     <div
+      ref={bar}
       role="group"
       aria-label={t('filterProjects')}
       className="inline-flex max-w-full gap-1 overflow-x-auto rounded-full border bg-background/80 p-1 backdrop-blur [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
@@ -57,6 +72,10 @@ export function CategoryFilter({
 /** Two-column project grid; cards fade and reflow when the list changes. */
 export function ProjectGrid({ items }: { items: Project[] }) {
   const reduce = useReducedMotion()
+  const { t } = useLang()
+  if (!items.length) {
+    return <p className="rounded-3xl border border-dashed px-6 py-12 text-center text-sm text-muted-foreground">{t('noProjects')}</p>
+  }
   return (
     <motion.div layout={!reduce} className="grid grid-cols-1 gap-6 md:grid-cols-2">
       <AnimatePresence mode="popLayout" initial={false}>
@@ -80,5 +99,4 @@ export function ProjectGrid({ items }: { items: Project[] }) {
   )
 }
 
-export const filterProjects = (category: Category | null) =>
-  category ? projects.filter(p => p.category === category) : projects
+export const filterProjects = (category: Category | null) => projectsIn(category)

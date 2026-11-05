@@ -107,16 +107,19 @@ export const vertical8: Shot[] = Array.from({ length: 8 }, () => tall2)
 
 export const layouts = { mixed11, v5h4, horizontal11, pair10, vertical8 }
 
-/** Default gallery per category: a mix for brand, portrait posts for social. UI/UX pages have no gallery. */
+const designMix: Shot[] = [
+  { w: 620, h: 620, span: 'col-span-6 md:col-span-3' },
+  { w: 620, h: 620, span: 'col-span-6 md:col-span-3' },
+  { w: 1264, h: 560, span: 'col-span-6' },
+  { w: 400, h: 400, span: 'col-span-6 sm:col-span-2' },
+  { w: 400, h: 400, span: 'col-span-6 sm:col-span-2' },
+  { w: 400, h: 400, span: 'col-span-6 sm:col-span-2' },
+]
+
+/** Default gallery per category: a mix for brand and graphic, portrait posts for social. UI/UX pages have no gallery. */
 export const galleries: Record<Exclude<Project['category'], 'uiux'>, Shot[]> = {
-  brand: [
-    { w: 620, h: 620, span: 'col-span-6 md:col-span-3' },
-    { w: 620, h: 620, span: 'col-span-6 md:col-span-3' },
-    { w: 1264, h: 560, span: 'col-span-6' },
-    { w: 400, h: 400, span: 'col-span-6 sm:col-span-2' },
-    { w: 400, h: 400, span: 'col-span-6 sm:col-span-2' },
-    { w: 400, h: 400, span: 'col-span-6 sm:col-span-2' },
-  ],
+  brand: designMix,
+  graphic: designMix,
   social: Array.from({ length: 6 }, () => ({ w: 480, h: 600, span: 'col-span-3 md:col-span-2' })),
 }
 

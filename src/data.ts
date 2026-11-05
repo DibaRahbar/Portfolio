@@ -10,9 +10,9 @@ export type Website = {
   url: string // '#' means no live link yet
 }
 
-export type Category = 'brand' | 'social' | 'uiux'
+export type Category = 'brand' | 'graphic' | 'social' | 'uiux'
 /** Display order: filter buttons and the "All" list. */
-export const categories: Category[] = ['uiux', 'brand', 'social']
+export const categories: Category[] = ['uiux', 'brand', 'graphic', 'social']
 
 export type Result = {
   value: number
@@ -84,6 +84,8 @@ export type CaseStudyFile = { label: Localized; href: string; fileName: string }
 export type Project = {
   slug: string
   category: Category
+  /** Id of the subfolder (leaf in lib/folders.ts) the project is filed under. Only for categories that have subfolders. */
+  folder?: string
   title: Localized
   client?: Localized
   year?: number
@@ -589,6 +591,7 @@ const allProjects: Project[] = [
   {
     slug: 'bloom-cafe',
     category: 'social',
+    folder: 'instagram-feed',
     title: { en: 'Mars Agency on Instagram', fa: 'اینستاگرام مارس آژانس' },
     client: { en: 'Mars Agency', fa: 'مارس آژانس' },
     year: 2026,

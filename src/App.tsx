@@ -8,7 +8,7 @@ import { LangProvider } from '@/i18n'
 import { ContactPage } from '@/pages/ContactPage'
 import { HomePage } from '@/pages/HomePage'
 import { ProjectDetailPage } from '@/pages/ProjectDetailPage'
-import { ProjectsPage, parseCategory } from '@/pages/ProjectsPage'
+import { ProjectsPage, parseCategory, parseFolder } from '@/pages/ProjectsPage'
 import { colors, darkColors } from '@/theme'
 import { ThemeProvider, useThemeMode } from '@/theme-mode'
 
@@ -73,7 +73,10 @@ function PageTransition({ path, children }: { path: string; children: ReactNode 
 function Page({ path, query }: { path: string; query: string }) {
   const detail = path.match(/^#\/projects\/(.+)$/)
   if (detail) return <ProjectDetailPage key={detail[1]} slug={detail[1]} />
-  if (path.startsWith('#/projects')) return <ProjectsPage category={parseCategory(query)} />
+  if (path.startsWith('#/projects')) {
+    const category = parseCategory(query)
+    return <ProjectsPage category={category} folder={parseFolder(query, category)} />
+  }
   if (path.startsWith('#/contact')) return <ContactPage />
   return <HomePage />
 }
