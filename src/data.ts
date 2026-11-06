@@ -93,6 +93,8 @@ export type Project = {
   description: Localized
   /** Real cover image path inside public/ (e.g. 'Image/3.jpg'). When present, used instead of the placeholder on the project card and (for brand/social) the detail-page hero. */
   coverImage?: string
+  /** Text shown on the project-card cover instead of a picture (e.g. "Coming soon"), used when there is no coverImage. */
+  coverLabel?: Localized
   /** CSS object-position for the cover on the project card (e.g. 'top' keeps the top of the image visible). Defaults to 'center'. */
   coverFocus?: string
   /** Extra zoom on the project-card cover only (e.g. 1.15 = 15% closer); the detail page is unaffected. */
@@ -499,6 +501,7 @@ const allProjects: Project[] = [
       en: 'UI/UX design for Mars Agency — coming soon.',
       fa: 'طراحی UI/UX برای مارس آژانس — به‌زودی.',
     },
+    coverLabel: { en: 'Coming soon', fa: 'به‌زودی' },
     tags: [tag.uiDesign, tag.uxDesign],
     role: { en: 'UI/UX designer', fa: 'طراح UI/UX' },
     appTool: { en: 'Figma', fa: 'فیگما' },
