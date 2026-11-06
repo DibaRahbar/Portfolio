@@ -98,5 +98,3 @@ export function ProjectGrid({ items }: { items: Project[] }) {
     </motion.div>
   )
 }
-
-export const filterProjects = (category: Category | null) => projectsIn(category)

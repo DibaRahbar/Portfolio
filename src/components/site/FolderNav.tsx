@@ -1,5 +1,6 @@
 import { ArrowLeft, Folder as FolderIcon } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
+import type { ReactNode } from 'react'
 import type { Category } from '@/data'
 import { useLang } from '@/i18n'
 import { categoryLabel } from '@/lib/category'
@@ -10,10 +11,21 @@ const hrefFor = (category: Category, folderId?: string) =>
 
 /**
  * Folder browser under the category filter: subfolders of the current level as tiles,
- * plus a Back link and the current folder's name once you are inside one.
- * Navigation is plain links to `?category=&folder=`, so the browser Back button works too.
+ * plus a Back button and the current folder's name once you are inside one.
+ *
+ * Without `onSelect` the tiles are links to `?category=&folder=` (Projects page), so the browser
+ * Back button works. With `onSelect` they are in-page buttons that report the chosen folder id
+ * (null = back to the category), so the host page keeps the state itself (Home page).
  */
-export function FolderNav({ category, folderId }: { category: Category; folderId: string | null }) {
+export function FolderNav({
+  category,
+  folderId,
+  onSelect,
+}: {
+  category: Category
+  folderId: string | null
+  onSelect?: (folderId: string | null) => void
+}) {
   const { t, l, n } = useLang()
   const reduce = useReducedMotion()
   const path = folderId ? (folderPath(category, folderId) ?? []) : []
@@ -22,6 +34,17 @@ export function FolderNav({ category, folderId }: { category: Category; folderId
   const children: Folder[] = current ? (current.children ?? []) : (folders[category] ?? [])
 
   if (!current && !children.length) return null
+
+  const go = (target: string | undefined, className: string, content: ReactNode) =>
+    onSelect ? (
+      <button type="button" onClick={() => onSelect(target ?? null)} className={`${className} w-full text-start`}>
+        {content}
+      </button>
+    ) : (
+      <a href={hrefFor(category, target)} className={className}>
+        {content}
+      </a>
+    )
 
   return (
     <motion.div
@@ -33,13 +56,14 @@ export function FolderNav({ category, folderId }: { category: Category; folderId
     >
       {current && (
         <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-          <a
-            href={hrefFor(category, parent?.id)}
-            className="inline-flex items-center gap-2 rounded-full border bg-background px-5 py-2.5 text-[13px] font-medium transition-colors hover:border-brand hover:text-brand"
-          >
-            <ArrowLeft className="size-4 rtl:-scale-x-100" />
-            {t('backTo')} {parent ? l(parent.label) : t(categoryLabel[category])}
-          </a>
+          {go(
+            parent?.id,
+            'inline-flex items-center gap-2 rounded-full border bg-background px-5 py-2.5 text-[13px] font-medium transition-colors hover:border-brand hover:text-brand',
+            <>
+              <ArrowLeft className="size-4 rtl:-scale-x-100" />
+              {t('backTo')} {parent ? l(parent.label) : t(categoryLabel[category])}
+            </>,
+          )}
           <h2 className="text-2xl font-semibold tracking-tight">
             {l(current.label)}
             <span className="ms-2 text-sm font-normal text-muted-foreground">{n(projectsIn(category, current).length)}</span>
@@ -51,18 +75,19 @@ export function FolderNav({ category, folderId }: { category: Category; folderId
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {children.map(child => (
             <li key={child.id}>
-              <a
-                href={hrefFor(category, child.id)}
-                className="group flex h-full items-center gap-3 rounded-2xl border bg-background/80 p-4 backdrop-blur outline-none transition-colors hover:border-brand focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand"
-              >
-                <span className="grid size-10 shrink-0 place-items-center rounded-full border text-brand transition-colors group-hover:border-brand group-hover:bg-primary group-hover:text-primary-foreground">
-                  <FolderIcon className="size-4" aria-hidden="true" />
-                </span>
-                <span className="min-w-0 flex-1 text-sm leading-snug font-medium transition-colors group-hover:text-brand">
-                  {l(child.label)}
-                </span>
-                <span className="text-xs text-muted-foreground tabular-nums">{n(projectsIn(category, child).length)}</span>
-              </a>
+              {go(
+                child.id,
+                'group flex h-full items-center gap-3 rounded-2xl border bg-background/80 p-4 backdrop-blur outline-none transition-colors hover:border-brand focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand',
+                <>
+                  <span className="grid size-10 shrink-0 place-items-center rounded-full border text-brand transition-colors group-hover:border-brand group-hover:bg-primary group-hover:text-primary-foreground">
+                    <FolderIcon className="size-4" aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0 flex-1 text-sm leading-snug font-medium transition-colors group-hover:text-brand">
+                    {l(child.label)}
+                  </span>
+                  <span className="text-xs text-muted-foreground tabular-nums">{n(projectsIn(category, child).length)}</span>
+                </>,
+              )}
             </li>
           ))}
         </ul>

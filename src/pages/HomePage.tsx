@@ -2,10 +2,12 @@ import { ArrowRight } from 'lucide-react'
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
 import { useRef, useState } from 'react'
 import { introPending } from '@/components/site/Preloader'
-import { CategoryFilter, ProjectGrid, filterProjects } from '@/components/site/ProjectFilter'
+import { FolderNav } from '@/components/site/FolderNav'
+import { CategoryFilter, ProjectGrid } from '@/components/site/ProjectFilter'
 import { SectionHeading, Shell } from '@/components/site/Shell'
 import type { Category } from '@/data'
 import { useLang } from '@/i18n'
+import { folderPath, folders, projectsIn } from '@/lib/folders'
 
 // How many project cards the home page shows before "View all".
 const HOME_PROJECT_LIMIT = 4
@@ -14,15 +16,24 @@ function ProjectsSection() {
   const { t } = useLang()
   // Kept in local state so filtering on Home does not change the URL or scroll.
   const [category, setCategory] = useState<Category | null>(null)
-  const items = filterProjects(category).slice(0, HOME_PROJECT_LIMIT)
-  const viewAllHref = category ? `#/projects?category=${category}` : '#/projects'
+  const [folder, setFolder] = useState<string | null>(null)
+  const node = category && folder ? (folderPath(category, folder)?.at(-1) ?? null) : null
+  const items = projectsIn(category, node).slice(0, HOME_PROJECT_LIMIT)
+  const viewAllHref = category ? `#/projects?category=${category}${folder ? `&folder=${folder}` : ''}` : '#/projects'
 
   return (
     <section id="projects" className="mt-14 scroll-mt-6 sm:mt-20">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading label={t('caseStudies')} title={t('projects')} />
-        <CategoryFilter value={category} onChange={setCategory} />
+        <CategoryFilter
+          value={category}
+          onChange={c => {
+            setCategory(c)
+            setFolder(null)
+          }}
+        />
       </div>
+      {category && folders[category] && <FolderNav category={category} folderId={folder} onSelect={setFolder} />}
       <div className="mt-10">
         <ProjectGrid items={items} />
       </div>
