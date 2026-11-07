@@ -55,7 +55,7 @@ function MetaCard({ project }: { project: Project }) {
   )
   return (
     <div className="space-y-4">
-      {project.category === 'uiux' && <WebsiteLink project={project} className="w-fit" />}
+      {(project.category === 'uiux' || project.url) && <WebsiteLink project={project} className="w-fit" />}
       <dl className="h-fit rounded-3xl border bg-background/80 p-6 backdrop-blur">
         {upper.map((r, i) => row(r, i === 0))}
         {!!project.caseStudies?.length && <CaseStudyRow files={project.caseStudies} />}
@@ -182,7 +182,7 @@ export function ProjectDetailPage({ slug }: { slug: string }) {
           alt={`${title} ${t('hero')}`}
         />
       )}
-      {project.category === 'uiux' && project.coverImage && (
+      {(project.category === 'uiux' || project.category === 'graphic') && project.coverImage && (
         <HeroImage src={assetSrc(project.coverImage)} alt={`${title} ${t('hero')}`} natural />
       )}
       <Results project={project} />
@@ -192,7 +192,7 @@ export function ProjectDetailPage({ slug }: { slug: string }) {
         <>
           {project.category === 'uiux' && !project.hideVideo && <VideoSection project={project} />}
           {!project.hideStory && <Story project={project} />}
-          {project.category !== 'uiux' && <Gallery project={project} />}
+          {project.category !== 'uiux' && !project.hideGallery && <Gallery project={project} />}
         </>
       )}
     </Shell>

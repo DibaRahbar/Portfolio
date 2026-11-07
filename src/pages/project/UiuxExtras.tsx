@@ -72,7 +72,7 @@ export function WebsiteLink({ project, className = 'mt-6' }: { project: Project;
   }
   return (
     <a
-      href={project.url}
+      href={assetSrc(project.url)}
       target="_blank"
       rel="noreferrer"
       className={`group ${className} inline-flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-soft`}
