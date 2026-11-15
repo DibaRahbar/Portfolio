@@ -130,8 +130,8 @@ export type Project = {
   resultImageFocus?: Record<number, string>
   /** Live website: a full https URL, or a path inside public/ (e.g. 'kooki-digital-menu.html'). UI/UX pages show "coming soon" until it is set. */
   url?: string
-  /** When true, the placeholder gallery is not shown (for projects without gallery images). */
-  hideGallery?: boolean
+  /** Text of the link button when `url` is set (default: "Visit website"). */
+  linkLabel?: Localized
   /** UI/UX projects: when true, the showcase video section is not shown. */
   hideVideo?: boolean
   /** Downloadable case studies, listed under App in the info card behind a "Case Study" toggle. */
@@ -167,8 +167,6 @@ const tag = {
   dashboardDesign: { en: 'Dashboard Design', fa: 'طراحی داشبورد' },
   portfolioDesign: { en: 'Portfolio Design', fa: 'طراحی پورتفولیو' },
   productDesign: { en: 'Product Design', fa: 'طراحی محصول' },
-  menuDesign: { en: 'Menu Design', fa: 'طراحی منو' },
-  digitalMenu: { en: 'Digital Menu', fa: 'منوی دیجیتال' },
 }
 
 export const websites: Website[] = [
@@ -397,6 +395,8 @@ const allProjects: Project[] = [
       en: 'Brand identity for KOOKI, a modern cookie bakery built around simplicity, character and everyday enjoyment.',
       fa: 'هویت بصری برند KOOKI، یک نانوایی کوکی مدرن بنا شده بر پایه‌ی سادگی، شخصیت و لذت روزانه.',
     },
+    url: 'kooki-digital-menu.html',
+    linkLabel: { en: 'Digital menu link', fa: 'لینک منوی دیجیتال' },
     coverImage: 'Image/1222.jpg',
     tags: [tag.identity],
     role: { en: 'Brand Identity Designer', fa: 'طراح هویت برند' },
@@ -592,24 +592,6 @@ const allProjects: Project[] = [
         fa: 'این وب‌سایت گالری برای بازآفرینی تجربه‌ی هنری فیزیکی در فضای دیجیتال طراحی شد — ترکیب محتوای کیوریت‌شده، تصاویر غنی و مسیر خرید روان و قابل اعتماد. بازدیدکنندگان می‌توانند به راحتی نمایشگاه‌ها را کشف، آثار را با جزئیات ببینند و مستقیماً از طریق پلتفرم خرید کنند.\n\nبا یک رابط کاربری مینیمال اما تصویر-محور، سایت فضایی ایجاد می‌کند که هم برای هنردوستان قابل دسترس و هم برای صاحبان گالری‌ها کارآمد است. نتیجه یک پلتفرم مدرن است که شکاف بین فضاهای هنری و مخاطبان آنلاین را پر می‌کند.',
       },
     },
-  },
-  {
-    slug: 'kooki-digital-menu',
-    category: 'graphic',
-    folder: 'menu-hospitality',
-    title: { en: 'KOOKI Digital Menu', fa: 'منوی دیجیتال KOOKI' },
-    client: { en: 'KOOKI', fa: 'KOOKI' },
-    year: 2026,
-    description: {
-      en: 'A bilingual digital menu for the KOOKI cookie bakery, designed for phones.',
-      fa: 'منوی دیجیتال دوزبانه‌ی نانوایی کوکی KOOKI، طراحی‌شده برای نمایش روی موبایل.',
-    },
-    coverImage: 'Image/kooki-digital-menu-cover.jpg',
-    tags: [tag.menuDesign, tag.digitalMenu],
-    role: { en: 'Graphic designer', fa: 'طراح گرافیک' },
-    url: 'kooki-digital-menu.html',
-    hideStory: true,
-    hideGallery: true,
   },
 
   // Placeholder works (invented details). Replace or remove before sharing the site.

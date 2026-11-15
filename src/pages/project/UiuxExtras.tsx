@@ -62,7 +62,7 @@ const videoSrc = (video: string) => (/^https?:\/\//.test(video) ? video : `${imp
 
 /** "Visit website" button, or a muted "coming soon" label until the project has a URL. */
 export function WebsiteLink({ project, className = 'mt-6' }: { project: Project; className?: string }) {
-  const { t } = useLang()
+  const { t, l } = useLang()
   if (!project.url) {
     return (
       <span className={`${className} inline-flex w-fit items-center gap-2 rounded-full border border-dashed px-6 py-3 text-sm font-medium text-muted-foreground`}>
@@ -77,7 +77,7 @@ export function WebsiteLink({ project, className = 'mt-6' }: { project: Project;
       rel="noreferrer"
       className={`group ${className} inline-flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-soft`}
     >
-      {t('visitWebsite')}
+      {project.linkLabel ? l(project.linkLabel) : t('visitWebsite')}
       <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" />
     </a>
   )

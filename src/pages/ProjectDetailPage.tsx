@@ -192,7 +192,7 @@ export function ProjectDetailPage({ slug }: { slug: string }) {
         <>
           {project.category === 'uiux' && !project.hideVideo && <VideoSection project={project} />}
           {!project.hideStory && <Story project={project} />}
-          {project.category !== 'uiux' && !project.hideGallery && <Gallery project={project} />}
+          {project.category !== 'uiux' && <Gallery project={project} />}
         </>
       )}
     </Shell>
