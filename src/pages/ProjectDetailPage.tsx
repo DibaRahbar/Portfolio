@@ -182,7 +182,7 @@ export function ProjectDetailPage({ slug }: { slug: string }) {
           alt={`${title} ${t('hero')}`}
         />
       )}
-      {(project.category === 'uiux' || project.category === 'graphic') && project.coverImage && (
+      {project.category === 'uiux' && project.coverImage && (
         <HeroImage src={assetSrc(project.coverImage)} alt={`${title} ${t('hero')}`} natural />
       )}
       <Results project={project} />

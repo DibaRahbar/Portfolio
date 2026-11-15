@@ -116,10 +116,9 @@ const designMix: Shot[] = [
   { w: 400, h: 400, span: 'col-span-6 sm:col-span-2' },
 ]
 
-/** Default gallery per category: a mix for brand and graphic, portrait posts for social. UI/UX pages have no gallery. */
+/** Default gallery per category: a mix for brand, portrait posts for social. UI/UX pages have no gallery. */
 export const galleries: Record<Exclude<Project['category'], 'uiux'>, Shot[]> = {
   brand: designMix,
-  graphic: designMix,
   social: Array.from({ length: 6 }, () => ({ w: 480, h: 600, span: 'col-span-3 md:col-span-2' })),
 }
 

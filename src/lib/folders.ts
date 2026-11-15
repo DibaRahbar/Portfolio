@@ -8,13 +8,6 @@ const folder = (id: string, en: string, fa: string, children?: Folder[]): Folder
 
 /** Folder tree per category. Categories not listed here have no folders. Folder ids are unique across the whole tree. */
 export const folders: Partial<Record<Category, Folder[]>> = {
-  graphic: [
-    folder('packaging-label', 'Packaging & Label Design', 'بسته‌بندی و طراحی لیبل'),
-    folder('advertising-print', 'Advertising & Print Design', 'پوستر، بنر، کاتالوگ و بروشور'),
-    folder('menu-hospitality', 'Menu & Hospitality Design', 'منو و اقلام چاپی هتل و رستوران'),
-    folder('signage-environmental', 'Signage & Environmental Graphics', 'تابلو و گرافیک محیطی'),
-    folder('stationery-promotional', 'Stationery & Promotional Design', 'ست اداری و اقلام تبلیغاتی'),
-  ],
   social: [
     folder('social-media', 'Social Media', 'شبکه‌های اجتماعی', [
       folder('post-carousel', 'Post & Carousel Design', 'طراحی پست و کاروسل'),

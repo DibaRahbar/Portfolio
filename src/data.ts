@@ -10,9 +10,9 @@ export type Website = {
   url: string // '#' means no live link yet
 }
 
-export type Category = 'brand' | 'graphic' | 'social' | 'uiux'
+export type Category = 'brand' | 'social' | 'uiux'
 /** Display order: filter buttons and the "All" list. */
-export const categories: Category[] = ['uiux', 'brand', 'graphic', 'social']
+export const categories: Category[] = ['uiux', 'brand', 'social']
 
 export type Result = {
   value: number
